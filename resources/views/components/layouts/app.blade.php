@@ -27,6 +27,8 @@
     <meta property="og:type" content="website">
     <meta property="og:image"
         content="https://lech.fancyog.com/og.jpg?title=Fancy+URL+Shortening&subtitle=Oh%20the%20places%20you%20will%20go%F0%9F%94%A5">
+
+    <script src="https://cdn.usefathom.com/script.js" data-site="SXMKTZGA" defer></script>
 </head>
 
 <body class="font-sans antialiased dark:bg-black dark:text-white/50">
