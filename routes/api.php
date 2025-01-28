@@ -1,8 +1,11 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\DecodeController;
+use App\Http\Controllers\Api\EncodeController;
+use App\Http\Middleware\EnsureApiTokenIsValid;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/howdy', function (Request $request) {
-    return response()->json(['message' => 'Howdy!']);
+Route::middleware([EnsureApiTokenIsValid::class, 'throttle:api'])->group(function () {
+    Route::post('/encode', EncodeController::class);
+    Route::post('/decode', DecodeController::class);
 });
