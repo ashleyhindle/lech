@@ -2,6 +2,8 @@
 
 namespace App\Actions;
 
+use App\Exceptions\GenerationFailedException;
+use App\Exceptions\InvalidUrlException;
 use App\Models\Url;
 use Hidehalo\Nanoid\Client as NanoidClient;
 
@@ -9,13 +11,40 @@ class Encode
 {
     public function __invoke(string $url): string
     {
-        // TODO: Validate URL and throw custom exception if not valid
-        // TODO: Add X attempts to generate unique short URL
-        $url = Url::create([
-            'url' => $url,
-            'nanoid' => (new NanoidClient)->generateId(7),
-        ]);
+        $isValid = filter_var($url, FILTER_VALIDATE_URL);
+        if (! $isValid) {
+            throw new InvalidUrlException('Invalid URL');
+        }
 
-        return config('app.url').'/'.$url->nanoid;
+        $url = $this->insertUrl($url);
+
+        return route('redirect', ['url' => $url]);
+    }
+
+    private function insertUrl(string $url): Url
+    {
+        $attempts = 0;
+        $maxAttempts = 3;
+
+        while ($attempts < $maxAttempts) {
+            try {
+                $url = Url::create([
+                    'url' => $url,
+                    'nanoid' => (new NanoidClient)->generateId(7),
+                ]);
+            } catch (\Exception $e) {
+                $attempts++;
+
+                continue;
+            }
+
+            break;
+        }
+
+        if (! $url) {
+            throw new GenerationFailedException('Failed to generate unique short URL');
+        }
+
+        return $url;
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EncodeRequest extends FormRequest
+class DecodeRequest extends FormRequest
 {
     /**
      * @return array<mixed>
