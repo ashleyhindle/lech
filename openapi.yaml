@@ -1,0 +1,133 @@
+openapi: 3.0.0
+info:
+  title: lech API
+  description: API for encoding and decoding shortened URLs
+  version: 1.0.0
+
+servers:
+  - url: https://lech.test/api
+    description: Local development server
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Token
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "Invalid URL"
+
+    EncodeRequest:
+      type: object
+      required:
+        - url
+      properties:
+        url:
+          type: string
+          format: url
+          example: "https://www.google.com"
+
+    EncodeResponse:
+      type: object
+      properties:
+        short_url:
+          type: string
+          example: "https://lech.test/abc123"
+
+    DecodeRequest:
+      type: object
+      required:
+        - url
+      properties:
+        url:
+          type: string
+          format: url
+          example: "https://lech.test/abc123"
+
+    DecodeResponse:
+      type: object
+      properties:
+        original_url:
+          type: string
+          example: "https://www.google.com"
+
+paths:
+  /encode:
+    post:
+      summary: Encode a URL into a shortened version
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EncodeRequest'
+      responses:
+        '201':
+          description: URL successfully shortened
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EncodeResponse'
+        '401':
+          description: Unauthorized - Invalid or missing API token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Validation error - Invalid URL format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests - Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /decode:
+    post:
+      summary: Decode a shortened URL back to its original form
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DecodeRequest'
+      responses:
+        '200':
+          description: URL successfully decoded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DecodeResponse'
+        '401':
+          description: Unauthorized - Invalid or missing API token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Validation error - Invalid URL format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests - Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
