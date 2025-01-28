@@ -11,6 +11,13 @@ export default {
     ],
     theme: {
         extend: {
+            colors: {
+                'brand-yellow': '#f3c84d',
+                'brand-dark': '#0d111c',
+                'brand-purple-lighter': '#e73278',
+                'brand-purple': '#c2205e',
+                'brand-purple-darker': '#9f194c'
+            },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
