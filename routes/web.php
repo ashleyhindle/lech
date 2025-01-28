@@ -8,4 +8,4 @@ Route::get('/', HomeShorten::class);
 
 Route::get('/{url}', function (Url $url) {
     return response()->redirectTo($url->url, 301);
-});
+})->name('redirect');
