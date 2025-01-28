@@ -1,5 +1,5 @@
 # Snazzy URL shortening - lech
-![lech-logo](./public/favicon-96x96.png)
+[![lech-logo](./public/favicon-96x96.png)](https://lech.ing)
 
 ## Requirements
 
