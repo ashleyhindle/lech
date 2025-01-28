@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Actions\Encode;
+use App\Exceptions\GenerationFailedException;
+use App\Exceptions\InvalidUrlException;
 use App\Http\Requests\EncodeRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use App\Exceptions\GenerationFailedException;
-use App\Exceptions\InvalidUrlException;
 
 class EncodeController
 {
@@ -17,7 +17,7 @@ class EncodeController
         $url = $request->validated('url');
 
         try {
-            $encodedUrl = (new Encode)($url); // @phpstan-ignore-line
+            $encodedUrl = (new Encode)($url);
         } catch (GenerationFailedException $e) {
             return response()->json(['error' => 'Failed to generate unique short URL'], Response::HTTP_INTERNAL_SERVER_ERROR);
         } catch (InvalidUrlException $e) {

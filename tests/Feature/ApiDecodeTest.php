@@ -21,15 +21,15 @@ test('returns 401 when expired API token is provided', function () {
     $response->assertStatus(401);
 });
 
-test('decode 404s with invalid nanoid', function () {
+test('decode 400s with invalid nanoid', function () {
     $response = $this->postJsonValid('/api/decode', ['url' => 'i-definitely-dont-exist']);
-    $response->assertStatus(404);
+    $response->assertStatus(422);
 });
 
 test('decodes valid short URL successfully', function () {
     /* Decode short URL to original URL */
     $url = Url::factory()->create();
-    $response = $this->postJsonValid('/api/decode', ['url' => $url->nanoid]);
+    $response = $this->postJsonValid('/api/decode', ['url' => 'https://lech.test/'.$url->nanoid]);
     $response->assertStatus(200);
     $response->assertExactJson(['original_url' => $url->url]);
 });

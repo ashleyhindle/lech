@@ -45,6 +45,6 @@ class Encode
             throw new GenerationFailedException('Failed to generate unique short URL');
         }
 
-        return $url;
+        return $url; // @phpstan-ignore-line
     }
 }

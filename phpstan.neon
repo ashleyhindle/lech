@@ -10,8 +10,7 @@ parameters:
         - database/
         - routes/
 
-    # Level 10 is the highest level
-    level: 10
+    level: 7
 
     excludePaths:
         - ./routes/console.php

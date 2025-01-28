@@ -19,7 +19,10 @@ class ShortenUrl extends Command
         $this->info($encodedUrl);
     }
 
-    protected function validateArguments(): ?array
+    /**
+     * @return array<string, mixed>
+     */
+    protected function validateArguments(): array
     {
         $validator = Validator::make($this->arguments(), [
             'url' => 'required|url',
