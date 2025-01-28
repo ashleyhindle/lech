@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('api_access_tokens', function (Blueprint $table) {
+        Schema::create('api_tokens', function (Blueprint $table) {
             $table->id();
             $table->string('token', 64)->unique();
             $table->timestamp('last_used_at')->nullable();
@@ -19,6 +19,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('api_access_tokens');
+        Schema::dropIfExists('api_tokens');
     }
 };
