@@ -31,7 +31,7 @@
     <script src="https://cdn.usefathom.com/script.js" data-site="SXMKTZGA" defer></script>
 </head>
 
-<body class="font-sans antialiased dark:bg-black dark:text-white/50">
+<body class="font-sans antialiased">
     <a href="{{ url('/') }}">
         <img src="{{ url('/web-app-manifest-192x192.png') }}" alt="Lech logo" class="w-12 h-12 block mx-auto my-8" />
     </a>
