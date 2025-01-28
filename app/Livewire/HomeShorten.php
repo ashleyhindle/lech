@@ -9,13 +9,13 @@ use Livewire\Component;
 class HomeShorten extends Component
 {
     #[Rule(['url' => 'required|url'], as: 'URL')]
-    public ?string $url = null;
+    public string $url = '';
 
-    public ?string $shortUrl = null;
+    public string $shortUrl = '';
 
     public bool $smaller = true;
 
-    public function submit()
+    public function submit(): void
     {
         $this->validate();
         $this->shortUrl = (new Encode)($this->url);
@@ -23,12 +23,12 @@ class HomeShorten extends Component
             $this->smaller = false;
         }
 
-        $this->url = null;
+        $this->url = '';
     }
 
-    public function updatedUrl()
+    public function updatedUrl(): void
     {
-        $this->shortUrl = null;
+        $this->shortUrl = '';
         $this->smaller = true;
     }
 }
