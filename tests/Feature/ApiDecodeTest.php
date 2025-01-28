@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+uses(RefreshDatabase::class);
 use App\Models\Url;
 
 test('returns 401 when no API token is provided', function () {

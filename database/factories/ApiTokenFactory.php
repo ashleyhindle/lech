@@ -31,4 +31,11 @@ class ApiTokenFactory extends Factory
             return ['expires_at' => now()->subMinutes(1)];
         });
     }
+
+    public function withToken(string $token): self
+    {
+        return $this->state(function (array $attributes) use ($token) {
+            return ['token' => $token];
+        });
+    }
 }

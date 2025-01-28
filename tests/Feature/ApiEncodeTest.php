@@ -1,5 +1,18 @@
 <?php
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+uses(RefreshDatabase::class);
+
+test('last_used_at is updated when API token is used', function () {
+    $rawToken = Illuminate\Support\Str::random(8);
+    $token = App\Models\ApiToken::factory()->withToken($rawToken)->create();
+    $this->postJson('/api/encode', ['url' => 'https://google.com'], ['X-Api-Token' => $rawToken]);
+    $token->refresh();
+
+    $this->assertNotNull($token->last_used_at);
+});
+
 test('returns 401 when no API token is provided', function () {
     $response = $this->postJson('/api/encode');
 

@@ -1,6 +1,9 @@
 <?php
 
 use App\Models\Url;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+uses(RefreshDatabase::class);
 
 test('redirects to the original url with valid nanoid', function () {
     $url = Url::factory()->create();

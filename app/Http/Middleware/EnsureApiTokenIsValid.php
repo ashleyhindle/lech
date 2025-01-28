@@ -30,7 +30,8 @@ class EnsureApiTokenIsValid
             return response()->json(['message' => 'API token expired'], 401);
         }
 
-        $dbToken->update(['last_used_at' => now()]);
+        $dbToken->last_used_at = now();
+        $dbToken->save();
 
         return $next($request);
     }

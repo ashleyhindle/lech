@@ -40,12 +40,12 @@ You can use the `openapi.yaml` file to see the full API spec.
 ### Encoding
 
 ```bash
-curl "https://lech.test/api/encode" -H "X-Api-Token: <token>" -H "Content-Type: application/json" -d '{"url": "https://www.google.com"}'
+curl "https://lech.test/api/encode" -H "X-Api-Token: <token>" -H "Accept: application/json" -H "Content-Type: application/json" -d '{"url": "https://www.google.com"}'
 ```
 
 
 ### Decoding
 
 ```bash
-curl "https://lech.test/api/decode" -H "X-Api-Token: <token>" -H "Content-Type: application/json" -d '{"url": "https://lech.test/123456"}'
+curl "https://lech.test/api/decode" -H "X-Api-Token: <token>" -H "Accept: application/json" -H "Content-Type: application/json" -d '{"url": "https://lech.test/123456"}'
 ```
