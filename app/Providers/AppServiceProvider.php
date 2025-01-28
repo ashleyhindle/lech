@@ -9,15 +9,11 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    public function register(): void
-    {
-        //
-    }
-
     public function boot(): void
     {
+        // Separate rate limit for each API token
         RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(60)->by($request->ip());
+            return Limit::perMinute(60)->by($request->header('X-Api-Token') ?? $request->ip());
         });
     }
 }
