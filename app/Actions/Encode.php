@@ -32,7 +32,7 @@ class Encode
                     'url' => $url,
                     'nanoid' => (new NanoidClient)->generateId(7),
                 ]);
-            } catch (\Exception $e) {
+            } catch (\Throwable $e) {
                 $attempts++;
 
                 continue;
@@ -41,7 +41,7 @@ class Encode
             break;
         }
 
-        if (! $url) {
+        if ($attempts === $maxAttempts) {
             throw new GenerationFailedException('Failed to generate unique short URL');
         }
 
